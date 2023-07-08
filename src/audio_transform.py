@@ -2,6 +2,29 @@ import librosa
 import numpy as np
 from librosa import feature
 
+def transform_audio(waveform, feature_extraction_params):
+    if feature_extraction_params["feature_name"].lower()  == "spectrogram":
+        spec = _get_spectrogram(waveform,
+                                n_fft=feature_extraction_params["n_fft"],
+                                power=feature_extraction_params["power"],
+                                win_length=feature_extraction_params["win_length"],
+                                hop_length=feature_extraction_params["hop_length"],
+                                to_db=feature_extraction_params["to_db"])
+    elif feature_extraction_params["feature_name"].lower() == "melspectrogram":
+        spec = _get_mel_spectrogram(waveform,
+                                    sr=feature_extraction_params["sr"],
+                                    n_fft=feature_extraction_params["n_fft"],
+                                    power=feature_extraction_params["power"],
+                                    win_length=feature_extraction_params["win_length"],
+                                    hop_length=feature_extraction_params["hop_length"],
+                                    n_mels = feature_extraction_params["n_mels"],
+                                    f_min = feature_extraction_params["f_min"],
+                                    f_max = feature_extraction_params["f_max"],
+                                    to_db = feature_extraction_params["to_db"])
+    else:
+        return ValueError("This feature is not implemented Yet! implemented feature are 'spectrogram' and 'melspectrogram' ")
+
+    return spec
 
 def _get_spectrogram(waveform, n_fft, power, win_length, hop_length, to_db):
     stft = librosa.stft(waveform, n_fft=n_fft, win_length=win_length, hop_length=hop_length)

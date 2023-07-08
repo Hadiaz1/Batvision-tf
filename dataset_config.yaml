@@ -1,0 +1,30 @@
+dataset:
+  name: batvisionv2
+  dataset_dir: h:/Downloads/BatvisionV2/BatvisionV2
+  location_blacklist: # List of undesried data acquistion locations
+
+audio_feature_extraction:
+  feature_name: melspectrogram # melspectrogram or spectrogram
+  sr: 44100
+  n_fft: 256
+  power: 1
+  win_length: 400
+  hop_length: 200
+  n_mels: 32
+  f_min: 0
+  f_max: 20000
+  to_db: False
+
+transform:
+  preprocess: resize # resize or None
+  depth_norm: True
+  image_size: 256 # Image size if resize
+  max_depth: 30.0 # Maximum depth value in meters
+
+training:
+  batch_size: 128
+
+
+
+
+
