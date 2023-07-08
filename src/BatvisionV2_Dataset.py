@@ -75,30 +75,6 @@ def dir_df(dataset_dir, annotation_file, location_blacklist=None):
 
     return df_list
 
-if __name__ == "__main__":
-    params = yaml.safe_load(open(r"C:\Users\CYTech Student\Batvision-tf\dataset_config.yaml"))
-    ds = load_batvisionv2_dataset(params, "train")
-
-    import matplotlib.pyplot as plt
-
-    # Extract a batch of examples from the dataset
-    num_images = 4
-    batch = next(iter(ds.batch(num_images)))
-
-    # Create subplots for displaying the images
-    fig, axes = plt.subplots(nrows=1, ncols=num_images)
-
-    # Plot each image in a subplot
-    for i in range(num_images):
-        spec, depth = batch[0][i], batch[1][i]
-        axes[i].imshow(spec[:, :, 0])
-        axes[i].set_title(f"Depth {i + 1}")
-
-    # Adjust spacing between subplots
-    plt.tight_layout()
-
-    # Show the plot
-    plt.show()
 
 
 
