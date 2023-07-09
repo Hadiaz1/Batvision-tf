@@ -1,3 +1,4 @@
+import yaml
 
 import BatvisionV2_Dataset
 import tensorflow as tf
@@ -8,11 +9,15 @@ from keras.callbacks import ReduceLROnPlateau, EarlyStopping, ModelCheckpoint
 from keras.losses import MeanAbsoluteError
 from tensorflow.keras.optimizers.experimental import AdamW
 
+from models import simple_UNet
 
 from utils import *
 
 def get_model(params):
-    pass
+    if params["model"]["model_name"].lower() == "simple_UNet".lower():
+        model = simple_UNet.get_scratch_model(params)
+
+    return model
 
 def get_optimizer(params):
     training_params = params["training"]
@@ -54,7 +59,7 @@ def get_callbacks(params):
                                      save_weights_only=False,
                                      monitor="val_loss",
                                      mode="min",
-                                     save_best_only=True)
+                                     save_best_only=True))
 
     return callbacks
 
@@ -85,6 +90,10 @@ def trainer(params):
 
     return history, model
 
+
+if __name__ == "__main__":
+    params = yaml.safe_load(open("dataset_config.yaml"))
+    history, model = trainer(params)
 
 
 

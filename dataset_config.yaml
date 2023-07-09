@@ -5,7 +5,6 @@ dataset:
   name: batvisionv2
   dataset_dir: h:/Downloads/BatvisionV2/BatvisionV2
   location_blacklist: # List of undesried data acquistion locations
-
 audio_feature_extraction:
   feature_name: spectrogram # melspectrogram or spectrogram
   sr: 22000
@@ -25,11 +24,12 @@ transform:
   max_depth: 30.0 # Maximum depth value in meters
 
 model:
-  model_name: unet
+  model_name: simple_unet
 
 training:
   batch_size: 64
   load_checkpoint:
+  epochs: 1
   initial_learning_rate: 0.01
   optimizer: Adam
   loss: mae
