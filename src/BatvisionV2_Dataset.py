@@ -32,16 +32,17 @@ def load_batvisionv2_dataset(params, version="train"):
                 max_depth = transform_params["max_depth"]
                 min_depth = 0.0
                 depth = min_max_normalize(depth, min_depth, max_depth)
-                depth = depth[..., tf.newaxis]
+
+            depth = depth[..., tf.newaxis]
 
             # Audio
             waveform, _ = _load_audio_file(audio_path,
                                            sr=feature_extraction_params["sr"],
                                            max_depth=transform_params["max_depth"])
-            if transform_params["max_depth"]:
-                feature_extraction_params["win_length"] = 64
-                feature_extraction_params["n_fft"] = 512
-                feature_extraction_params["hop_length"] = 64 // 4
+            # if transform_params["max_depth"]:
+            #     feature_extraction_params["win_length"] = 64
+            #     feature_extraction_params["n_fft"] = 512
+            #     feature_extraction_params["hop_length"] = 64 // 4
 
             spec = transform_audio(waveform, feature_extraction_params=feature_extraction_params).astype(np.float32)
             spec = spec[..., tf.newaxis]
@@ -74,11 +75,3 @@ def dir_df(dataset_dir, annotation_file, location_blacklist=None):
     df_list = pd.concat(df_list)
 
     return df_list
-
-
-
-
-
-
-
-

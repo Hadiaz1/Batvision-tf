@@ -7,11 +7,11 @@ dataset:
   location_blacklist: # List of undesried data acquistion locations
 audio_feature_extraction:
   feature_name: spectrogram # melspectrogram or spectrogram
-  sr: 22000
-  n_fft: 256
+  sr: 44100
+  n_fft: 512
   power: 1
-  win_length: 400
-  hop_length: 200
+  win_length: 128
+  hop_length: 64
   n_mels: 16
   f_min: 0
   f_max: 20000
@@ -21,7 +21,7 @@ transform:
   preprocess:  resize # resize or None
   depth_norm: True
   image_size: 256 # Image size if resize
-  max_depth: 30.0 # Maximum depth value in meters
+  max_depth: 10000 # Maximum depth value in mm
 
 model:
   model_name: simple_unet
