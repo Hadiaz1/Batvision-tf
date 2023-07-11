@@ -26,9 +26,7 @@ if __name__ == "__main__":
     #Audio
     params = {"feature_name": "spectrogram", "n_fft": 512, "power": 1, "win_length": 128, "hop_length": 64, "to_db": False}
     AUDIO_EXAMPLE, sr = _load_audio_file("audio_47.wav", sr=44100, max_depth=MAX_DEPTH)
-    print(AUDIO_EXAMPLE.shape)
     AUDIO_SPEC = transform_audio(AUDIO_EXAMPLE, feature_extraction_params=params)
-    print(AUDIO_SPEC.shape)
 
     fig, axs = plt.subplots(1, 3)
 
