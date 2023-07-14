@@ -16,7 +16,7 @@ from utils import *
 def get_model(params):
     if params["model"]["model_name"].lower() == "simple_UNet".lower():
         model = simple_UNet.get_scratch_model(params)
-    elif params["model"]["model_name"].lower() == "MobileNetV2".lower():
+    elif params["model"]["model_name"].lower() == "MobileNetV2_unet".lower():
         model = MobileNetv2_UNet.get_model(params)
 
     return model
