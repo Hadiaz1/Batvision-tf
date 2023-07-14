@@ -63,13 +63,7 @@ def get_callbacks(params):
 
     return callbacks
 
-def trainer(params):
-    if params["dataset"]["name"] == "batvisionv2":
-        train_ds = BatvisionV2_Dataset.load_batvisionv2_dataset(params, version="train")
-        val_ds = BatvisionV2_Dataset.load_batvisionv2_dataset(params, version="val")
-    else:
-        raise ValueError("this batvision ds version is not implemented yet")
-
+def trainer(params, train_ds, val_ds):
     if params["training"]["load_checkpoint"]:
         model = tf.keras.models.load_model(params["training"]["load_checkpoint"])
     else:
@@ -92,8 +86,14 @@ def trainer(params):
 
 
 if __name__ == "__main__":
-    params = yaml.safe_load(open("dataset_config.yaml"))
-    history, model = trainer(params)
+    params = yaml.safe_load(open("params.yaml"))
+    if params["dataset"]["name"] == "batvisionv2":
+        train_ds = BatvisionV2_Dataset.load_batvisionv2_dataset(params, version="train")
+        val_ds = BatvisionV2_Dataset.load_batvisionv2_dataset(params, version="val")
+    else:
+        raise ValueError("this batvision ds version is not implemented yet")
+
+    history, model = trainer(params, train_ds, val_ds)
 
 
 
