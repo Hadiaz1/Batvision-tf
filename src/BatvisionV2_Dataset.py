@@ -47,13 +47,16 @@ def load_batvisionv2_dataset(params, version="train"):
             spec = transform_audio(waveform, feature_extraction_params=feature_extraction_params).astype(np.float32)
             spec = spec[..., tf.newaxis]
 
+            if transform_params["spec_to_rgb"]:
+                spec = tf.image.grayscale_to_rgb(spec)
+
             if transform_params["preprocess"] is not None and transform_params["preprocess"].lower() == "resize":
                 depth = tf.image.resize(depth, [transform_params["image_size"], transform_params["image_size"]])
                 spec = tf.image.resize(spec, [transform_params["image_size"], transform_params["image_size"]])
 
             yield spec, depth
 
-    ds = tf.data.Dataset.from_generator(generator, output_types=(np.float32,np.float32))
+    ds = tf.data.Dataset.from_generator(generator, output_types=(np.float32, np.float32))
     if version != "test":
         ds = ds.batch(training_params["batch_size"])
     ds = ds.prefetch(buffer_size=tf.data.AUTOTUNE)

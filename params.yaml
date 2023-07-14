@@ -20,8 +20,9 @@ audio_feature_extraction:
 transform:
   preprocess:  resize # resize or None
   depth_norm: True # MinMax Normalize depth arrays
-  image_size: 256 # Image size if resize
+  image_size: 128 # Image size if resize
   max_depth: 10000 # Maximum depth value in mm
+  spec_to_rgb: True # Convert spectrogram to 3 RGB input channels
 
 model:
   model_name: simple_unet # model name. Choose a model from the /src/models/ zoo
