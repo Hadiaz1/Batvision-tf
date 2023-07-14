@@ -22,7 +22,7 @@ def get_model(params):
     encoder_output = encoder.get_layer(encoder_output_name).output
     x = encoder_output
 
-    for i in range(1, len(skip_connection_names)):
+    for i in range(1, len(skip_connection_names)+1):
         x_skip = encoder.get_layer(skip_connection_names[-i]).output
         x = UpSampling2D((2, 2))(x)
         x = Concatenate()([x, x_skip])
@@ -40,10 +40,6 @@ def get_model(params):
     model = Model(inputs=inputs, outputs= x)
 
     return model
-
-params = yaml.safe_load(open(r"C:\Users\CYTech Student\Batvision-tf\params.yaml"))
-model = get_model(params)
-print(model.summary())
 
 
 

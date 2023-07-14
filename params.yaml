@@ -25,7 +25,7 @@ transform:
   spec_to_rgb: True # Convert spectrogram to 3 RGB input channels
 
 model:
-  model_name: simple_unet # model name. Choose a model from the /src/models/ zoo
+  model_name: mobilenetv2 # model name. Choose a model from the /src/models/ zoo
 
 training:
   batch_size: 64 # Batch size

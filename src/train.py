@@ -9,13 +9,15 @@ from keras.callbacks import ReduceLROnPlateau, EarlyStopping, ModelCheckpoint
 from keras.losses import MeanAbsoluteError
 from tensorflow.keras.optimizers.experimental import AdamW
 
-from models import simple_UNet
+from models import simple_UNet, MobileNetv2_UNet
 
 from utils import *
 
 def get_model(params):
     if params["model"]["model_name"].lower() == "simple_UNet".lower():
         model = simple_UNet.get_scratch_model(params)
+    elif params["model"]["model_name"].lower() == "MobileNetV2".lower():
+        model = MobileNetv2_UNet.get_model(params)
 
     return model
 

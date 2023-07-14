@@ -1,5 +1,6 @@
 import pandas as pd
 import tensorflow as tf
+import cv2
 
 import os
 import yaml
@@ -48,7 +49,7 @@ def load_batvisionv2_dataset(params, version="train"):
             spec = spec[..., tf.newaxis]
 
             if transform_params["spec_to_rgb"]:
-                spec = tf.image.grayscale_to_rgb(spec)
+                spec = cv2.cvtColor(spec, cv2.COLOR_GRAY2RGB)
 
             if transform_params["preprocess"] is not None and transform_params["preprocess"].lower() == "resize":
                 depth = tf.image.resize(depth, [transform_params["image_size"], transform_params["image_size"]])
