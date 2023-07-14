@@ -30,7 +30,7 @@ model:
 training:
   batch_size: 64 # Batch size
   load_checkpoint: # To resume training, choose ckpt
-  epochs: 1 # Number of epochs
+  epochs: 10 # Number of epochs
   initial_learning_rate: 0.01 # Initial learning rate
   optimizer: Adam # Optimizer. "Adam" , "SGD", or "AdamW"
   loss: mae # the loss function. "mae" stands for mean absolute error
