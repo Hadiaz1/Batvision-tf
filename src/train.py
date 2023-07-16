@@ -7,6 +7,7 @@ from tensorflow import keras
 from keras.optimizers import Adam, SGD
 from keras.callbacks import ReduceLROnPlateau, EarlyStopping, ModelCheckpoint
 from keras.losses import MeanAbsoluteError
+from keras.metrics import RootMeanSquaredError
 from tensorflow.keras.optimizers.experimental import AdamW
 
 from models import simple_UNet, MobileNetv2_UNet
@@ -38,6 +39,10 @@ def get_optimizer(params):
 def get_loss(params):
     if params["training"]["loss"].lower() == "mae".lower():
         loss = MeanAbsoluteError()
+    elif params["training"]["loss"].lower() == "rmse".lower():
+        loss = RootMeanSquaredError()
+    elif params["training"]["loss"].lower() == "custom_depth_loss".lower():
+        loss = custom_depth_loss
     else:
         raise ValueError("The chosen loss is not implemented yet")
 
@@ -75,7 +80,7 @@ def trainer(params, train_ds, val_ds):
     callbacks = get_callbacks(params)
     loss = get_loss(params)
 
-    model.compile(optimizer=optimizer, loss=loss)
+    model.compile(optimizer=optimizer, loss=loss, metrics=[custom_depth_acc])
     history = model.fit(train_ds,
               validation_data=val_ds,
               callbacks=callbacks,
@@ -96,7 +101,3 @@ if __name__ == "__main__":
         raise ValueError("this batvision ds version is not implemented yet")
 
     history, model = trainer(params, train_ds, val_ds)
-
-
-
-

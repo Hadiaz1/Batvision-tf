@@ -24,7 +24,7 @@ if __name__ == "__main__":
     test_depth = np.array(list(test_depth.as_numpy_iterator()))
 
     predictions = predict_depth(test_spec, model)
-    test_loss = compute_test_loss(test_depth, predictions, loss="mae")
+    test_loss = compute_test_loss(test_depth, predictions, loss=params["training"]["loss"])
 
     print("Test Mean Absolute Error = ", test_loss)
 
