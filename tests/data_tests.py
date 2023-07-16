@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     im3 = axs[2].imshow(AUDIO_SPEC, aspect="auto", origin="lower")
     axs[2].set_title("Spectrogram")
-    cbar3 = fig.colorbar(im2, ax=axs[2])
+    cbar3 = fig.colorbar(im3, ax=axs[2])
 
     plt.subplots_adjust(wspace=0.3)
 
