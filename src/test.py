@@ -11,19 +11,24 @@ def predict_depth(x, model):
     return predictions
 
 def compute_test_loss(actual, predictions, loss="mae"):
-    if loss == "mae":
-        total_error = 0
-        total_pairs = 0
+    total_error = 0
+    total_pairs = 0
 
-        for pred_img, actual_img in zip(predictions, actual):
+    for pred_img, actual_img in zip(predictions, actual):
+        if loss == "mae":
             error = np.abs(pred_img - actual_img)
-            total_error += np.sum(error)
-            total_pairs += error.size
+        elif loss == "rmse":
+            error = np.square(pred_img - actual_img)
+        else:
+            raise ValueError("Loss is not implemented")
 
+        total_error += np.sum(error)
+        total_pairs += error.size
+
+    if loss == "mae":
         loss = total_error / total_pairs
-
-    else:
-        raise ValueError("Loss is not Implemented")
+    elif loss == "rmse":
+        loss = np.sqrt(total_error / total_pairs)
 
     return loss
 
