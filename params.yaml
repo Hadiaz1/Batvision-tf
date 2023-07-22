@@ -1,0 +1,42 @@
+general:
+  output_dir: output # Output directory
+  saved_dir: saved_models # Saved models directory
+dataset:
+  name: batvisionv2 # batvisionv2 or batvisionv1
+  dataset_dir: h:/Downloads/BatvisionV2/BatvisionV2 # directory where dataset is stored
+  location_blacklist: # List of undesried data acquisition locations
+audio_feature_extraction:
+  feature_name: spectrogram # melspectrogram or spectrogram
+  sr: 44100 # audio sampling rate
+  n_fft: 512 # number of FFT points
+  power: 1 # 1 or 2. 1 for energy and 2 for power spectrogram
+  win_length: 128 # Window length
+  hop_length: 64 # Hop length
+  n_mels: 16 # number of mel filter banks
+  f_min: 0 # minimum frequency
+  f_max: 20000 # maximum frequency
+  to_db: False # convert spectrogram to dB scale
+
+transform:
+  preprocess:  resize # resize or None
+  depth_norm: True # MinMax Normalize depth arrays
+  image_size: 128 # Image size if resize
+  max_depth: 10000 # Maximum depth value in mm
+  spec_to_rgb: False # Convert spectrogram to 3 RGB input channels
+
+model:
+  model_name: ResAttention_UNet # model name. Choose a model from the /src/models/ zoo
+  dropout:  # Dropout rate
+
+training:
+  batch_size: 32 # Batch size
+  load_checkpoint: # To resume training, choose ckpt
+  epochs: 5 # Number of epochs
+  initial_learning_rate: 0.001 # Initial learning rate
+  optimizer: Adam # Optimizer. "Adam" , "SGD", or "AdamW"
+  loss: mae # the loss function. "mae" stands for mean absolute error
+  learning_rate_scheduler: ReduceLROnPlateau # Learning rate schedule
+
+
+
+
