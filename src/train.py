@@ -10,15 +10,17 @@ from keras.losses import MeanAbsoluteError
 from keras.metrics import RootMeanSquaredError
 from tensorflow.keras.optimizers.experimental import AdamW
 
-from models import simple_UNet, MobileNetv2_UNet
+from models import simple_UNet, MobileNetv2_UNet, ResAttention_UNet
 
 from utils import *
 
 def get_model(params):
     if params["model"]["model_name"].lower() == "simple_UNet".lower():
         model = simple_UNet.get_scratch_model(params)
-    elif params["model"]["model_name"].lower() == "MobileNetV2_unet".lower():
+    elif params["model"]["model_name"].lower() == "MobileNetV2_UNet".lower():
         model = MobileNetv2_UNet.get_model(params)
+    elif params["model"]["model_name"].lower() == "ResAttention_UNet".lower():
+        model = ResAttention_UNet.get_model(params)
 
     return model
 
@@ -80,7 +82,7 @@ def trainer(params, train_ds, val_ds):
     callbacks = get_callbacks(params)
     loss = get_loss(params)
 
-    model.compile(optimizer=optimizer, loss=loss, metrics=[custom_depth_acc])
+    model.compile(optimizer=optimizer, loss=loss)
     history = model.fit(train_ds,
               validation_data=val_ds,
               callbacks=callbacks,
