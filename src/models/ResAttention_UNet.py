@@ -63,7 +63,6 @@ def attention_block(x, gating):
 
     return x
 
-# print x_shape and make sure it doesnt print NOne for batch size ro soemthing
 
 def get_model(params):
     KERNEL_SIZE = (3, 3)
