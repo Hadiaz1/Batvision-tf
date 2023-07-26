@@ -6,6 +6,7 @@ import tensorflow.keras.backend as K
 from dataset_utils import _load_audio_file, _load_depth_file
 from BatvisionV2_Dataset import *
 from audio_transform import *
+from utils import *
 
 def test_depth_arr(depth):
     params = {"max_depth": 10000}
@@ -33,8 +34,8 @@ def compute_test_loss(actual, predictions, loss="mae"):
         else:
             raise ValueError("Loss is not implemented")
 
-            total_error += np.sum(error)
-            total_pairs += error.size
+        total_error += np.sum(error)
+        total_pairs += error.size
 
     if loss == "mae" or loss == "custom_depth_loss":
         loss = total_error / total_pairs
