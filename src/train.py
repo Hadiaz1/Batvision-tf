@@ -10,7 +10,7 @@ from keras.losses import MeanAbsoluteError
 from keras.metrics import RootMeanSquaredError
 from tensorflow.keras.optimizers.experimental import AdamW
 
-from models import simple_UNet, MobileNetv2_UNet, ResAttention_UNet
+from models import simple_UNet, MobileNetv2_UNet, ResAttention_UNet, Transformer_UNet
 
 from utils import *
 
@@ -21,6 +21,10 @@ def get_model(params):
         model = MobileNetv2_UNet.get_model(params)
     elif params["model"]["model_name"].lower() == "ResAttention_UNet".lower():
         model = ResAttention_UNet.get_model(params)
+    elif params["model"]["model_name"].lower() == "Transformer_UNet".lower():
+        model = Transformer_UNet.get_model(params)
+    else:
+        raise ValueError("Model Not implemented Yet.")
 
     return model
 
