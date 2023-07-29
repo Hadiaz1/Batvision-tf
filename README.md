@@ -28,8 +28,8 @@ python main.py
 
 ## Results
 | Model Name        | Test Mean Absolute Error |
-|-------------------|--------------------------|
-| simple_UNet       |                          |
-| MobileNetv2_UNet  |                          |
-| ResAttention_UNet | 0.1047                   |
-| Transformer_UNet  |                          |
+|-------------------|-------------------------|
+| simple_UNet       |                         |
+| MobileNetv2_UNet  | 0.1055                  |
+| ResAttention_UNet | 0.1047                  |
+| Transformer_UNet  |                         |
