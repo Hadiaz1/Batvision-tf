@@ -20,18 +20,23 @@ audio_feature_extraction:
 transform:
   preprocess:  resize # resize or None
   depth_norm: True # MinMax Normalize depth arrays
-  image_size: 128 # Image size if resize
+  image_size: 256 # Image size if resize
   max_depth: 10000 # Maximum depth value in mm
-  spec_to_rgb: False # Convert spectrogram to 3 RGB input channels
+  spec_to_rgb: True # Convert spectrogram to 3 RGB input channels
 
 model:
-  model_name: ResAttention_UNet # model name. Choose a model from the /src/models/ zoo
-  dropout:  # Dropout rate
+  model_name: Transformer_UNet # model name. Choose a model from the /src/models/ zoo
+  dropout: 0.1 # Dropout rate
+  patch_size: 16 # Specific to Transformer architecture
+  mlp_dim: 3072 # Specific to Transformer architecture
+  hidden_dim: 768 # Specific to Transformer architecture
+  num_heads: 12 # Specific to Transformer architecture
+  num_layers: 12 # Specific to Transformer architecture
 
 training:
   batch_size: 32 # Batch size
-  load_checkpoint: # To resume training, choose ckpt
-  epochs: 5 # Number of epochs
+  load_checkpoint:  # To resume training, choose ckpt
+  epochs: 250 # Number of epochs
   initial_learning_rate: 0.001 # Initial learning rate
   optimizer: Adam # Optimizer. "Adam" , "SGD", or "AdamW"
   loss: mae # the loss function. "mae" stands for mean absolute error
