@@ -3,9 +3,11 @@ from tensorflow.keras.models import Model
 
 
 def get_scratch_model(params):
-    input_shape = (params["transform"]["image_size"], params["transform"]["image_size"], 3 if params["transform"]["spec_to_rgb"] else 1)
+    input_shape = (params["transform"]["image_size"],
+                   params["transform"]["image_size"],
+                   3 if params["transform"]["spec_to_rgb"] else 1)
 
-    inputs = Input(input_shape)
+    inputs = Input(shape=input_shape)
 
     #Contraction
     c1 = Conv2D(16, (3, 3), activation="relu", kernel_initializer="he_normal", padding="same")(inputs)
